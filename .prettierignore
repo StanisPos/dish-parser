@@ -1,0 +1,17 @@
+**/.tmp/
+**/glob-manifest.json
+**/tsconfig.json
+**/package.json
+**/coverage/
+/config
+/src/react-app-env.d.ts
+node_modules/
+.idea
+npm-debug.log
+.vscode
+tsconfig.json
+package.json
+yarn-lock.json
+build
+.eslintrc.js
+.prettierrc.json
