@@ -85,7 +85,7 @@ module.exports = {
 			},
 		],
 		'jsx-a11y/accessible-emoji': 0,
-		'react/satic-property-placement': 0,
+		'react/static-property-placement': 0,
 		'@typescript-eslint/explicit-member-accessibility': [1, { accessibility: 'no-public' }],
 		'@typescript-eslint/no-empty-interface': 1,
 		'@typescript-eslint/explicit-function-return-type': [
@@ -108,7 +108,8 @@ module.exports = {
 		'@typescript-eslint/no-non-null-assertion': 0,
 		'@typescript-eslint/camelcase': 0,
 		'@typescript-eslint/ban-ts-ignore': 0,
-	},
+        "react/state-in-constructor": [0, "never"]
+    },
     "env": {
         "browser": true,
         "node": true
