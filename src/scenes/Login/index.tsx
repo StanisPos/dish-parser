@@ -7,7 +7,7 @@ const Login = () => {
     <div className="login">
       <h1 className="login-logo">DISH PARSER</h1>
       <Form />
-      <Button err />
+      <Button />
     </div>
   );
 };
