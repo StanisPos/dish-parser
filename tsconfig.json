@@ -21,7 +21,8 @@
     "jsx": "react",
     "baseUrl": "./src",
     "paths": {
-      "@ducks/*": ["./store/ducks/*"]
+      "@ducks/*": ["./store/ducks/*"],
+      "@components/*": ["./components/*"]
     }
   },
   "include": [
