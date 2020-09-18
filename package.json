@@ -33,6 +33,10 @@
     "semver": "6.3.0",
     "style-loader": "0.23.1",
     "styled-components": "^5.2.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-no-unsupported-browser-features": "^4.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0"
   },
