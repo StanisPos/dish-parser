@@ -1,1 +1,13 @@
-import React from 'react';import Button from './components/button';import logo from './logo.svg';import './App.css';function App() {	return (		<div className="App">			<header className="App-header">				<img src={logo} className="App-logo" alt="logo" />			</header>			<Button />		</div>	);}export default App;
+import React from 'react';
+import './App.css';
+import Login from './scenes/Login';
+
+function App() {
+	return (
+		<div className="App">
+			<Login />
+		</div>
+	);
+}
+
+export default App;
