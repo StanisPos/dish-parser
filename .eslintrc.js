@@ -109,7 +109,8 @@ module.exports = {
 		'@typescript-eslint/camelcase': 0,
 		'@typescript-eslint/ban-ts-ignore': 0,
         "react/state-in-constructor": [0, "never"],
-        "no-debugger": 1
+        "no-debugger": 1,
+		"class-methods-use-this": 0
     },
     "env": {
         "browser": true,
