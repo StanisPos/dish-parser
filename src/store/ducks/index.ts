@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
+import { RecipesState } from '@ducks/dishes/interfaces';
 import dishReducer from './dishes/reducers';
 
 type Store = {
-	dishes: any,
+  recipes: RecipesState,
 };
 
 export const rootReducer = combineReducers<Store>({
-	dishes: dishReducer,
+  recipes: dishReducer,
 });

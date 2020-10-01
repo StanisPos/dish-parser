@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -21,7 +21,9 @@
     "jsx": "react",
     "baseUrl": "./src",
     "paths": {
-      "@ducks/*": ["./store/ducks/*"]
+      "@ducks/*": ["./store/ducks/*"],
+      "@components/*": ["./components/*"],
+      "@services/*": ["./services/*"]
     }
   },
   "include": [

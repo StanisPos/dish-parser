@@ -1,24 +1,35 @@
-import { handleActions, ReducerMapMeta } from 'redux-actions';
+import { Draft } from 'immer';
+import { Action } from 'redux-actions';
+import { isEmpty, noop } from 'lodash';
+import { immutableHandleActions } from '@ducks/utils';
+
 import * as actions from './actions';
-import { setAddDishes } from './helpers';
+import { Dish, RecipesState } from './interfaces';
 
-const INITIAL_STATE = {
-	dishes: [],
-	count: 0,
+const INITIAL_STATE: RecipesState = {
+  dishes: [],
+  count: 0,
 };
 
-const reducer: ReducerMapMeta<any, any, any> = {
-	[actions.addDish.toString()]: (state: any, { payload }: any) => ({
-		...state,
-		...setAddDishes(state, payload),
-	}),
-	[actions.deleteDish.toString()]: (state: any, { payload }: any) => ({
-		...state,
-		dishes: state.dishes.filter(({ id }: any) => id !== payload.id),
-	}),
-	[actions.updateDish.toString()]: (state, { payload }) => ({ ...state }),
-	[actions.sortDish.toString()]: (state, { payload }) => ({ ...state }),
-	[actions.resetSortDish.toString()]: (state, { payload }) => ({ ...state }),
+const reducer = {
+  [actions.addDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+    if (!isEmpty(payload)) {
+      draft.dishes.push(payload);
+      draft.count = ++draft.count;
+    }
+  },
+  [actions.deleteDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+    draft.dishes = draft.dishes.filter(({ id }: Dish) => id !== payload.id);
+  },
+  [actions.updateDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+    noop();
+  },
+  [actions.sortDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+    noop();
+  },
+  [actions.resetSortDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+    noop();
+  },
 };
 
-export default handleActions(reducer, INITIAL_STATE);
+export default immutableHandleActions<typeof reducer, RecipesState>(reducer, INITIAL_STATE);
