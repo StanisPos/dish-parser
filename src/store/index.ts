@@ -7,9 +7,9 @@ import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { rootReducer } from './ducks';
 
 const persistConfig = {
-	key: 'root',
-	storage,
-	stateReconciler: autoMergeLevel2,
+  key: 'root',
+  storage,
+  stateReconciler: autoMergeLevel2,
 };
 console.log(rootReducer);
 const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);
