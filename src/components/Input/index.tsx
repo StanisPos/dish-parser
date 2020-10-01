@@ -2,26 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-	type: string,
-	id: string,
-	required: boolean,
-	label?: string,
+  type: string,
+  placeholder: string,
+  marginTop?: string,
 };
 
 const StyledInput = styled.input`
-	width: 100%;
-	font-size: 14px;
-	line-height: 17px;
-	font-style: normal;
-	font-weight: normal;
-	padding: 16px 24px;
+  width: 100%;
+  padding: 15px 24px;
+  margin-top: ${(props: Props) => props.marginTop || 0};
+  border-radius: 16px;
+  box-shadow: 0 2px 0 rgba(215, 215, 215, 0.16);
+  outline: none;
+  border: 1px solid #ff7a00;
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #313143;
+
+  &::placeholder {
+    color: rgba(215, 215, 215, 0.55);
+  }
 `;
 
-export const Input: React.FC<Props> = React.memo(({ type, id, required, label }) => {
-	return (
-		<div>
-			<StyledInput id={id} type={type} required={required} />
-			{label && <label htmlFor={id}>{label}</label>}
-		</div>
-	);
+export const Input: React.FC<Props> = React.memo(({ type, placeholder, marginTop }) => {
+  return <StyledInput type={type} placeholder={placeholder} marginTop={marginTop} />;
 });
