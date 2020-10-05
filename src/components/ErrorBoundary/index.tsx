@@ -35,7 +35,7 @@ class ErrorBoundaryComponent extends React.PureComponent<Props, State> {
       // доделать как будет дизайн
       return (
         <Modal.Dialog size="lg" centered>
-          <Modal.Header translate="en">
+          <Modal.Header translate="ru">
             <Modal.Title>Заголовок предупреждения</Modal.Title>
           </Modal.Header>
           <Modal.Body>Сообщение о том, что что-то пошло не так</Modal.Body>
