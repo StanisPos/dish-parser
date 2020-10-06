@@ -36,12 +36,20 @@ const StyledLinkSignUp = styled(StyledLink)`
 `;
 
 export const Form = React.memo(() => {
-  const [phoneInputHasError, setPhoneInputHasError] = useState(false);
   const [phoneInputValue, setPhoneInputValue] = useState('');
+  const [phoneInputHasError, setPhoneInputHasError] = useState(true);
+
+  const [passwordInputValue, setPasswordInputValue] = useState('');
+  const [passwordInputHasError, setPasswordInputHasError] = useState(true);
 
   const handleChangePhoneInput = (value: string) => {
     setPhoneInputValue(value);
-    setPhoneInputHasError(!/^(1\s|1|)?((\(\d{3}\))|\d{3})(|\s)?(\d{3})(|\s)?(\d{4})$/.test(value));
+    setPhoneInputHasError(!/^((\+7|7|8)+([0-9]){10})$/.test(value));
+  };
+
+  const handleChangePasswordInput = (value: string) => {
+    setPasswordInputValue(value);
+    setPasswordInputHasError(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value));
   };
 
   return (
@@ -55,13 +63,21 @@ export const Form = React.memo(() => {
           }}
           value={phoneInputValue}
         />
-        {/* <Input type="password" placeholder="Пароль" marginTop="24px" /> */}
+        <Input
+          type="password"
+          placeholder="Пароль"
+          marginTop="24px"
+          value={passwordInputValue}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            handleChangePasswordInput(event.target.value);
+          }}
+        />
         <Button
           title="Войти"
           type="submit"
           onClick={() => console.log('submit')}
           marginTop="24px"
-          disabled={phoneInputHasError}
+          disabled={phoneInputHasError || passwordInputHasError}
         />
       </StyledForm>
       <StyledLinkEmail href="#">Вход с помощью e-mail</StyledLinkEmail>

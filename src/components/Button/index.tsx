@@ -25,8 +25,6 @@ const StyledButton = styled.button`
 
   &:disabled {
     background: rgba(215, 215, 215, 0.75);
-    box-shadow: 0 2px 0 rgba(215, 215, 215, 0.16);
-    border-radius: 16px;
   }
 `;
 
