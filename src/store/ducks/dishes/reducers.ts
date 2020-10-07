@@ -7,27 +7,37 @@ import * as actions from './actions';
 import { Dish, RecipesState } from './interfaces';
 
 const INITIAL_STATE: RecipesState = {
-  dishes: [],
+  recipes: [],
   count: 0,
 };
 
 const reducer = {
-  [actions.addDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+  [actions.requestRecipesSuccess.toString()]: (
+    draft: Draft<RecipesState>,
+    { payload }: Action<Dish[]>,
+  ) => {
+    draft.recipes = payload;
+    draft.count = payload.length;
+  },
+  [actions.addRecipe.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
     if (!isEmpty(payload)) {
-      draft.dishes.push(payload);
+      draft.recipes.push(payload);
       draft.count = ++draft.count;
     }
   },
-  [actions.deleteDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
-    draft.dishes = draft.dishes.filter(({ id }: Dish) => id !== payload.id);
+  [actions.deleteRecipe.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+    draft.recipes = draft.recipes.filter(({ id }: Dish) => id !== payload.id);
   },
-  [actions.updateDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+  [actions.updateRecipe.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
     noop();
   },
-  [actions.sortDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+  [actions.sortRecipes.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
     noop();
   },
-  [actions.resetSortDish.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
+  [actions.resetSortRecipes.toString()]: (
+    draft: Draft<RecipesState>,
+    { payload }: Action<Dish>,
+  ) => {
     noop();
   },
 };
