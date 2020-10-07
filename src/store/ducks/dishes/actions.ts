@@ -1,11 +1,15 @@
 import { createAction } from 'redux-actions';
 import { Dish } from '@ducks/dishes/interfaces';
 
-const prefix = 'DISH';
+const prefix = 'Recipes';
 
-export const addDish = createAction<Dish>(`${prefix}/add`);
-export const updateDish = createAction<Dish>(`${prefix}/update`);
-export const deleteDish = createAction<Dish>(`${prefix}/delete`);
+export const requestRecipes = createAction(`${prefix}/request`);
+export const requestRecipesSuccess = createAction(`${prefix}/request/success`);
+export const requestRecipesFail = createAction(`${prefix}/request/fail`);
 
-export const sortDish = createAction<string>(`${prefix}/sort`);
-export const resetSortDish = createAction<void>(`${prefix}/reset-sort`);
+export const addRecipe = createAction<Dish>(`${prefix}/add`);
+export const updateRecipe = createAction<Dish>(`${prefix}/update`);
+export const deleteRecipe = createAction<Dish>(`${prefix}/delete`);
+
+export const sortRecipes = createAction<string>(`${prefix}/sort`);
+export const resetSortRecipes = createAction<void>(`${prefix}/reset-sort`);

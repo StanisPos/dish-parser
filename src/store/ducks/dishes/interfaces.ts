@@ -1,5 +1,5 @@
 type Minerals = {
-  [key: string]: string,
+  [key: string]: number,
 };
 
 interface DishPart {
@@ -10,6 +10,7 @@ interface DishPart {
   proteins: number;
   fats: number;
   carbohydrates: number;
+  calories: string;
   glycemicIndex: number;
   breadUnit: number;
   minerals?: Minerals;
@@ -20,6 +21,6 @@ export interface Dish extends DishPart {
 }
 
 export interface RecipesState {
-  dishes: Dish[];
+  recipes: Dish[];
   count: number;
 }

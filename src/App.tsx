@@ -1,11 +1,11 @@
 import React from 'react';
 import { ErrorBoundary } from '@components/ErrorBoundary';
-import { BrowserRouter } from 'react-router-dom';
-import { Dishes } from '@services/api/dishes';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Login from './scenes/Login';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from './layout/Container';
+import { Recipes } from './scenes/Recipes';
 
 function App() {
   return (
@@ -13,7 +13,11 @@ function App() {
       <BrowserRouter>
         <ErrorBoundary>
           <Container>
-            <Login />
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/recipes" component={Recipes} />
+              <Redirect to="login" />
+            </Switch>
           </Container>
         </ErrorBoundary>
       </BrowserRouter>
