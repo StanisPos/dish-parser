@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
+import { Link } from 'react-router-dom';
 
 type Props = {
   fieldType: string,
@@ -20,7 +21,7 @@ const StyledForm = styled.form`
   margin-top: 150px;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   display: block;
   font-style: normal;
   font-weight: normal;
@@ -111,8 +112,8 @@ export const Form: React.FC<Props> = React.memo(
             disabled={fieldHasError}
           />
         </StyledForm>
-        <StyledLinkEmail href="#">{bottomLinkTitle}</StyledLinkEmail>
-        <StyledLinkSignUp href="#">Зарегистрироваться</StyledLinkSignUp>
+        <StyledLinkEmail to="/login/email/">{bottomLinkTitle}</StyledLinkEmail>
+        <StyledLinkSignUp to="/register/">Зарегистрироваться</StyledLinkSignUp>
       </>
     );
   },
