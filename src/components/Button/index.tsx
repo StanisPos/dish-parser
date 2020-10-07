@@ -5,12 +5,16 @@ type Props = {
   title?: string,
   type: 'button' | 'submit' | 'reset',
   disabled?: boolean,
-  onClick(): void,
+  onClick?: () => void,
   marginTop?: string,
 };
 
 const StyledButton = styled.button`
-  padding: 14px 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 48px;
   background: linear-gradient(180deg, #ff7a00 0%, #ffd322 100%);
   box-shadow: 0 2px 0 rgba(215, 215, 215, 0.16);
   border-radius: 16px;

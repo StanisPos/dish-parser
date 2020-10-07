@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
-import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Form } from '@components/Form';
+import styled from 'styled-components';
 
-const LoginWrapper = styled.div`
+const PasswordWrapper = styled.div`
   padding-top: 248px;
   padding-bottom: 96px;
 `;
@@ -18,7 +18,7 @@ const StyledTitle = styled.h1`
   text-align: center;
 `;
 
-export const Login = React.memo(() => {
+export const Password = React.memo(() => {
   const [fieldValue, setFieldValue] = useState('');
   const history = useHistory();
 
@@ -27,20 +27,19 @@ export const Login = React.memo(() => {
   };
 
   const handleButtonClick = () => {
-    history.push('/login/password/');
+    history.push('/recipes');
   };
 
   return (
-    <LoginWrapper>
+    <PasswordWrapper>
       <StyledTitle>dish parser</StyledTitle>
       <Form
-        fieldType="phone"
-        value={fieldValue}
+        fieldType="password"
         onChange={handleFieldChange}
-        buttonTitle="Продолжить"
-        bottomLinkTitle="Войти с помощью e-mail"
+        value={fieldValue}
+        buttonTitle="Войти"
         onButtonClick={handleButtonClick}
       />
-    </LoginWrapper>
+    </PasswordWrapper>
   );
 });
