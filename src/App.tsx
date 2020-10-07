@@ -15,7 +15,7 @@ function App() {
         <ErrorBoundary>
           <Container>
             <Switch>
-              <Route path="/login/" component={Login} />
+              <Route path="/login/" exact component={Login} />
               <Route path="/login/password/" component={Password} />
               <Route path="/recipes/" component={Recipes} />
               <Redirect to="/login/" />
