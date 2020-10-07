@@ -6,6 +6,6 @@ const StyledContainer = styled(Layout)`
   padding: 0 48px;
 `;
 
-export const Container: React.FC = React.memo(({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
-});
+export const Container: React.FC<any> = React.memo(({ children }): any =>
+  React.Children.map(children, child => <StyledContainer>{child}</StyledContainer>),
+);
