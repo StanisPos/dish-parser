@@ -31,8 +31,8 @@ const reducer = {
   [actions.updateRecipe.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
     noop();
   },
-  [actions.sortRecipes.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish>) => {
-    noop();
+  [actions.sortRecipes.toString()]: (draft: Draft<RecipesState>, { payload }: Action<Dish[]>) => {
+    draft.recipes = payload;
   },
   [actions.resetSortRecipes.toString()]: (
     draft: Draft<RecipesState>,

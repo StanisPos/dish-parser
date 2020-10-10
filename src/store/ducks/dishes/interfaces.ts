@@ -5,6 +5,7 @@ type Minerals = {
 type DishPart = {
   id: number | string;
   name: string;
+  image: string;
   quantity: number;
   units: 'л' | 'кг' | 'шт';
   proteins: number;

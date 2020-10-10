@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Draggable } from 'react-beautiful-dnd';
+import { Dish } from '@ducks/dishes/interfaces';
+
+type Props = Dish & {
+  index: number;
+};
 
 const StyledRow = styled(Row)`
   margin-bottom: 20px;
@@ -37,15 +43,15 @@ const StyledImage = styled.img`
   min-height: 48px;
 `;
 
-export const RecipeItem: React.FC<any> = React.memo(({ name, image, handleSlim }) => {
-  const [widthTest, setWidth] = React.useState(100);
-
-  return (
-    <StyledRow>
-      <StyledCol xs tabIndex={0} onMouseDown={handleSlim} widthTest={widthTest}>
-        <StyledImage src={image} alt={name} />
-        <StyledTitle>{name}</StyledTitle>
-      </StyledCol>
-    </StyledRow>
-  );
-});
+export const RecipeItem: React.FC<Props> = React.memo(({ id, name, image, index }) => (
+  <Draggable draggableId={id.toString()} index={index}>
+    {provided => (
+      <StyledRow ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+        <StyledCol xs>
+          <StyledImage src={image} alt={name} />
+          <StyledTitle>{name}</StyledTitle>
+        </StyledCol>
+      </StyledRow>
+    )}
+  </Draggable>
+));
