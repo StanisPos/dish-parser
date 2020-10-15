@@ -6,7 +6,7 @@ import { requestRecipes, sortRecipes } from '@ducks/dishes/actions';
 import { selectRecipes } from '@ducks/dishes/selectors';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Dish } from '@ducks/dishes/interfaces';
-import { RecipeItem } from './RecipeItem';
+import { DragDrop } from './DargDrop';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -27,7 +27,6 @@ const RecipesList: React.FC<Props> = React.memo(({ getAllRecipes, recipes, sortI
     if (!result.destination || result.destination.index === result.source.index) {
       return;
     }
-
     const items = reorder(recipes, result.source.index, result.destination.index);
 
     sortItems(items);
@@ -39,7 +38,7 @@ const RecipesList: React.FC<Props> = React.memo(({ getAllRecipes, recipes, sortI
         {provided => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {recipes.map((recipe: Dish, i: number) => (
-              <RecipeItem {...recipe} key={recipe.id} index={i} />
+              <DragDrop {...recipe} key={recipe.id} index={i} />
             ))}
             {provided.placeholder}
           </div>
