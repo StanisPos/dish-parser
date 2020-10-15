@@ -1,8 +1,14 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { Form } from '@components/Form';
-import styled from 'styled-components';
 
-export const Email = React.memo(() => {
-  return <Form />;
-});
+export const Email = React.memo(() => (
+  <Form
+    fieldType="email"
+    bottomLinkTitle="Вход с помощью телефона"
+    bottomLinkUrl="/login/"
+    buttonTitle="Продолжить"
+    inputPlaceholder="E-mail"
+    formHasBackButton={false}
+    submitButtonUrl="/login/password/"
+  />
+));

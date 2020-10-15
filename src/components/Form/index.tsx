@@ -4,7 +4,7 @@ import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Link, useHistory } from 'react-router-dom';
 import { validation } from '@components/Form/utils/validation';
-import BackButton from '../../icons/IconBack.svg';
+import { ReactComponent as BackButton } from '../../icons/icon-back.svg';
 
 const StyledForm = styled.form`
   display: flex;
@@ -28,6 +28,12 @@ const StyledLink = styled(Link)`
     color: #d7d7d7;
     text-decoration: none;
   }
+`;
+
+const StyledBackButton = styled(BackButton)`
+  position: absolute;
+  top: 97px;
+  cursor: pointer;
 `;
 
 const StyledLinkEmail = styled(StyledLink)`
@@ -54,17 +60,27 @@ const StyledTitle = styled.h1`
 `;
 
 type Props = {
-  fieldType: string,
-  bottomLinkTitle: string,
+  fieldType: 'phone' | 'email' | 'password',
+  bottomLinkTitle?: string,
   buttonTitle: string,
   inputPlaceholder: string,
   formHasBackButton: boolean,
+  bottomLinkUrl?: string,
+  submitButtonUrl: string,
 };
 
 export const Form: React.FC<Props> = React.memo(
-  ({ fieldType, bottomLinkTitle, buttonTitle, inputPlaceholder, formHasBackButton }) => {
+  ({
+    fieldType,
+    bottomLinkTitle,
+    buttonTitle,
+    inputPlaceholder,
+    formHasBackButton,
+    bottomLinkUrl,
+    submitButtonUrl,
+  }) => {
     const [fieldValue, setFieldValue] = useState('');
-    const [fieldHasError, setFieldHasError] = useState('');
+    const [fieldHasError, setFieldHasError] = useState(true);
 
     const history = useHistory();
 
@@ -72,13 +88,18 @@ export const Form: React.FC<Props> = React.memo(
       setFieldValue(event.target.value);
       setFieldHasError(validation[fieldType](event.target.value));
     };
+
     const handleButtonClick = () => {
-      history.push(`/login/${fieldType}`);
+      history.push(submitButtonUrl);
+    };
+
+    const handleBackButtonClick = () => {
+      history.goBack();
     };
 
     return (
       <FormWrapper>
-        {formHasBackButton && <BackButton />}
+        {formHasBackButton && <StyledBackButton onClick={handleBackButtonClick} />}
         <StyledTitle>dish parser</StyledTitle>
         <StyledForm>
           <Input
@@ -95,7 +116,9 @@ export const Form: React.FC<Props> = React.memo(
             disabled={fieldHasError}
           />
         </StyledForm>
-        <StyledLinkEmail to={`/login/${fieldType}/`}>{bottomLinkTitle}</StyledLinkEmail>
+        {bottomLinkUrl && bottomLinkTitle && (
+          <StyledLinkEmail to={bottomLinkUrl}>{bottomLinkTitle}</StyledLinkEmail>
+        )}
         <StyledLinkSignUp to="/register/">Зарегистрироваться</StyledLinkSignUp>
       </FormWrapper>
     );
