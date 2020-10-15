@@ -2,16 +2,9 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { Link } from 'react-router-dom';
-
-type Props = {
-  fieldType: string,
-  onChange(event: ChangeEvent<HTMLInputElement>): void,
-  value: string,
-  bottomLinkTitle?: string,
-  buttonTitle: string,
-  onButtonClick?: () => void,
-};
+import { Link, useHistory } from 'react-router-dom';
+import { validation } from '@components/Form/utils/validation';
+import BackButton from '../../icons/IconBack.svg';
 
 const StyledForm = styled.form`
   display: flex;
@@ -45,76 +38,66 @@ const StyledLinkSignUp = styled(StyledLink)`
   margin-top: 85px;
 `;
 
-export const Form: React.FC<Props> = React.memo(
-  ({ fieldType, bottomLinkTitle, buttonTitle, onButtonClick }) => {
-    const [fieldHasError, setFieldHasError] = useState(true);
-    const [fieldValue, setFieldValue] = useState('');
+const FormWrapper = styled.div`
+  padding-top: 248px;
+  padding-bottom: 96px;
+`;
 
-    const validateFieldByType = (value: string) => {
-      switch (fieldType) {
-        case 'phone':
-          setFieldHasError(!/^((\+7|7|8)+([0-9]){10})$/.test(value));
-          break;
-        case 'email':
-          setFieldHasError(
-            !/^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-              value,
-            ),
-          );
-          break;
-        case 'password':
-          setFieldHasError(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value));
-          break;
-        default:
-          return false;
-      }
-      return false;
-    };
+const StyledTitle = styled.h1`
+  font-style: normal;
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 50px;
+  color: #ff7a00;
+  text-shadow: 0 2px 0 rgba(215, 215, 215, 0.16);
+  text-align: center;
+`;
+
+type Props = {
+  fieldType: string,
+  bottomLinkTitle: string,
+  buttonTitle: string,
+  inputPlaceholder: string,
+  formHasBackButton: boolean,
+};
+
+export const Form: React.FC<Props> = React.memo(
+  ({ fieldType, bottomLinkTitle, buttonTitle, inputPlaceholder, formHasBackButton }) => {
+    const [fieldValue, setFieldValue] = useState('');
+    const [fieldHasError, setFieldHasError] = useState('');
+
+    const history = useHistory();
 
     const handleFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
       setFieldValue(event.target.value);
-      validateFieldByType(event.target.value);
+      setFieldHasError(validation[fieldType](event.target.value));
     };
-
-    const renderCommonInput = (type: string, placeholder: string) => {
-      return (
-        <Input
-          type={type}
-          placeholder={placeholder}
-          onChange={handleFieldChange}
-          value={fieldValue}
-        />
-      );
-    };
-
-    const renderInputByType = () => {
-      switch (fieldType) {
-        case 'phone':
-          return renderCommonInput('tel', 'Телефон');
-        case 'email':
-          return renderCommonInput('email', 'E-mail');
-        case 'password':
-          return renderCommonInput('password', 'Пароль');
-        default:
-          return false;
-      }
+    const handleButtonClick = () => {
+      history.push(`/login/${fieldType}`);
     };
 
     return (
-      <>
+      <FormWrapper>
+        {formHasBackButton && <BackButton />}
+        <StyledTitle>dish parser</StyledTitle>
         <StyledForm>
-          {renderInputByType()}
+          <Input
+            type={fieldType}
+            placeholder={inputPlaceholder}
+            onChange={handleFieldChange}
+            value={fieldValue}
+          />
           <Button
             title={buttonTitle}
             type="submit"
-            onClick={onButtonClick}
+            onClick={handleButtonClick}
             marginTop="24px"
             disabled={fieldHasError}
           />
         </StyledForm>
-        <StyledLinkEmail to="/login/email/">{bottomLinkTitle}</StyledLinkEmail>
+        <StyledLinkEmail to={`/login/${fieldType}/`}>{bottomLinkTitle}</StyledLinkEmail>
         <StyledLinkSignUp to="/register/">Зарегистрироваться</StyledLinkSignUp>
-      </>
+      </FormWrapper>
     );
   },
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import { ErrorBoundary } from '@components/ErrorBoundary';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from './layout/Container';
-import { Login } from './scenes/Login';
+import { Login } from './scenes/Phone';
 import { Password } from './scenes/Password';
 import { Email } from './scenes/Email';
 import { Recipes } from './scenes/Recipes';
