@@ -3,8 +3,18 @@ import styled from 'styled-components';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Link, useHistory } from 'react-router-dom';
-import { validation } from '@components/Form/utils/validation';
+import { validation } from '@components/Form/utils/utils';
 import { ReactComponent as BackButton } from '../../icons/icon-back.svg';
+
+type Props = {
+  fieldType: 'phone' | 'email' | 'password',
+  bottomLinkTitle?: string,
+  buttonTitle: string,
+  inputPlaceholder: string,
+  formHasBackButton: boolean,
+  bottomLinkUrl?: string,
+  submitButtonUrl: string,
+};
 
 const StyledForm = styled.form`
   display: flex;
@@ -58,16 +68,6 @@ const StyledTitle = styled.h1`
   text-shadow: 0 2px 0 rgba(215, 215, 215, 0.16);
   text-align: center;
 `;
-
-type Props = {
-  fieldType: 'phone' | 'email' | 'password',
-  bottomLinkTitle?: string,
-  buttonTitle: string,
-  inputPlaceholder: string,
-  formHasBackButton: boolean,
-  bottomLinkUrl?: string,
-  submitButtonUrl: string,
-};
 
 export const Form: React.FC<Props> = React.memo(
   ({
