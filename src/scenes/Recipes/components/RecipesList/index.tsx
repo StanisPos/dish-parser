@@ -13,7 +13,7 @@ const RecipesList: React.FC<any> = React.memo(({ getAllRecipes, recipes }): any 
 
   return (
     <>
-      {recipes.map(recipe => (
+      {recipes.map((recipe: any) => (
         <RecipeItem {...recipe} key={recipe.id} />
       ))}
     </>

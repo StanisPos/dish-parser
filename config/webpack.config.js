@@ -495,6 +495,10 @@ module.exports = function(webpackEnv) {
 						// Make sure to add the new loader(s) before the "file" loader.
 					],
 				},
+				{
+					test: /\.svg$/,
+					use: ['@svgr/webpack'],
+				},
 			],
 		},
 		plugins: [
