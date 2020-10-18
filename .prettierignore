@@ -6,6 +6,7 @@
 /config
 /src/react-app-env.d.ts
 node_modules/
+/mock-server/**/*.json
 .idea
 npm-debug.log
 .vscode

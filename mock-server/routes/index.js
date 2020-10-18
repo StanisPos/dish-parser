@@ -9,5 +9,6 @@ module.exports = {
     });
 
     server.use('/api', apiRoute.recipes);
+    server.use('/api', apiRoute.auth);
   },
 };

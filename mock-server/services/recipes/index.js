@@ -16,10 +16,10 @@ const recipes = [
 ];
 
 class Recipes extends Abstract {
-  constructor(name = 'recipes') {
+  constructor(name) {
     super(name);
 
-    this.file = this.getMockApiPath();
+    this.file = super.getMockApiPath();
   }
 
   init() {
@@ -45,4 +45,4 @@ class Recipes extends Abstract {
   }
 }
 
-module.exports = new Recipes();
+module.exports = new Recipes('recipes');

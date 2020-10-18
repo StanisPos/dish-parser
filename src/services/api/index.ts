@@ -7,6 +7,7 @@ const failRequestInterceptor = (response: AxiosResponse) => Promise.reject(respo
 export const api = axios.create({
   baseURL: `${config.baseUrl}/api`,
   withCredentials: true,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 api.interceptors.response.use(successRequestInterceptor, failRequestInterceptor);
