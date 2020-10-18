@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { uniqId } = require('lodash');
+const uniqid = require('uniqid');
+const { isEmpty } = require('lodash');
 const config = require('../../configs/config');
 
 const Abstract = require('../abstract/index');
@@ -14,7 +15,11 @@ class Auth extends Abstract {
   }
 
   set _updateUsers(user) {
-    this.data.users.push(user);
+    try {
+      this.data.users.push(user);
+    } catch (e) {
+      throw new Error(`Не удалось добавить пользователя: ${e}`);
+    }
   }
 
   _createJwt(user) {
@@ -37,11 +42,13 @@ class Auth extends Abstract {
     });
   }
 
-  async _findExistUser({ phone = '', email = '' } = {}) {
+  async findExistUser({ id = '', phone = '', email = '' } = {}) {
     try {
       this.data = await this.readFile();
 
-      return this.data.users?.find(user => (user.phone === phone || user.email === email) && user);
+      return this.data.users?.find(
+        user => (user.id === id || user.phone === phone || user.email === email) && user,
+      );
     } catch (e) {
       this.throwError(e);
       return false;
@@ -54,19 +61,22 @@ class Auth extends Abstract {
     });
   }
 
-  async _addNewUser({ phone, email, role = 'user', password } = {}) {
-    this._updateUsers = { id: uniqId(), phone, email, role, password };
+  async _addNewUser({ id = uniqid(), phone = '', email = '', role = 'user', password }) {
+    this._updateUsers = { id, phone, email, role, password };
 
     try {
       await this.writeFile(this.data);
-      return await this._createJwt({});
+      return await this._createJwt({ id, role });
     } catch (e) {
       return `Не удалось записать пользователя: ${e.message || e}`;
     }
   }
 
   async createNewUser(user) {
-    const existUser = await this._findExistUser(user);
+    if (isEmpty(user)) {
+      throw new Error('Не верные данные');
+    }
+    const existUser = await this.findExistUser(user);
 
     if (existUser) {
       throw new Error('Такой пользователь существует');
@@ -80,7 +90,7 @@ class Auth extends Abstract {
       throw new Error('Нет такого и быть не может');
     }
 
-    const foundUser = await this._findExistUser(loginData);
+    const foundUser = await this.findExistUser(loginData);
 
     const isCheckPassword = await this._checkPassword(foundUser);
 
