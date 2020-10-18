@@ -7,7 +7,7 @@ module.exports = class Abstract {
     if (new.target === Abstract) {
       throw new Error(`Can't instantiate Abstract`);
     } else {
-      this.init();
+      setTimeout(() => this.init());
     }
 
     this.name = name;
@@ -31,7 +31,7 @@ module.exports = class Abstract {
         try {
           resolve(JSON.parse(data));
         } catch (e) {
-          this.throwError(e);
+          reject(e);
         }
       });
     });
