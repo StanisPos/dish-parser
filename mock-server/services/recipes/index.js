@@ -7,7 +7,8 @@ class Recipes extends Abstract {
     this.file = this.getMockApiPath();
   }
 
-  init() {
+  async init() {
+    console.log(await this.isExistsFile());
     console.log(this);
   }
 

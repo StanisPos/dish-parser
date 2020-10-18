@@ -49,6 +49,18 @@ module.exports = class Abstract {
     });
   }
 
+  isExistsFile() {
+    return new Promise(resolve => {
+      fs.access(this.file, err => {
+        if (err?.message.includes('no such file')) {
+          resolve(false);
+        }
+
+        resolve(true);
+      });
+    });
+  }
+
   throwError(err) {
     if (err) {
       throw err;
