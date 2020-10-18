@@ -5,21 +5,30 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
   try {
-    const test = await service.auth.createNewUser(req.body);
+    const token = await service.auth.createNewUser(req.body);
 
-    res.send(test);
+    res.status(200).json({
+      token,
+      e: 'Регистрация прошла успешно',
+    });
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).json({
+      e: `Ошибка регистрации: ${e.message || e}`,
+    });
   }
 });
 
-router.get('/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
   try {
-    const token = await service.auth.authentication(req.query);
+    const token = await service.auth.authentication(req.body);
 
-    res.send(JSON.stringify(token));
+    res.status(200).json({
+      token,
+    });
   } catch (e) {
-    res.status(500).send('Something wrong!');
+    res.status(400).json({
+      message: `Ошибка авторизации: ${e.message || e}`,
+    });
   }
 });
 

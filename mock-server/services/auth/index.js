@@ -1,4 +1,8 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const { uniqId } = require('lodash');
+const config = require('../../configs/config');
+
 const Abstract = require('../abstract/index');
 
 class Auth extends Abstract {
@@ -13,6 +17,26 @@ class Auth extends Abstract {
     this.data.users.push(user);
   }
 
+  _createJwt(user) {
+    return new Promise((resolve, reject) => {
+      jwt.sign(
+        {
+          id: user.id,
+          role: user.role,
+        },
+        config.jwt,
+        { expiresIn: '7d' },
+        (err, token) => {
+          if (err) {
+            reject(err);
+          }
+
+          resolve(token);
+        },
+      );
+    });
+  }
+
   async _findExistUser({ phone = '', email = '' } = {}) {
     try {
       this.data = await this.readFile();
@@ -24,14 +48,20 @@ class Auth extends Abstract {
     }
   }
 
-  async _addNewUser({ username, email, role = 'user', password } = {}) {
-    this._updateUsers = { username, email, role, password };
+  _checkPassword({ password, email, phone }) {
+    return new Promise(resolve => {
+      bcrypt.compare(password, email || phone).then(resolve);
+    });
+  }
+
+  async _addNewUser({ phone, email, role = 'user', password } = {}) {
+    this._updateUsers = { id: uniqId(), phone, email, role, password };
 
     try {
       await this.writeFile(this.data);
-      return 'Пользователь записан';
+      return await this._createJwt({});
     } catch (e) {
-      return 'Не удалось записать пользователя';
+      return `Не удалось записать пользователя: ${e.message || e}`;
     }
   }
 
@@ -52,19 +82,13 @@ class Auth extends Abstract {
 
     const foundUser = await this._findExistUser(loginData);
 
-    return new Promise((resolve, reject) => {
-      if (!foundUser) {
-        reject(new Error('Пользователь не найден'));
-      }
+    const isCheckPassword = await this._checkPassword(foundUser);
 
-      jwt.sign(foundUser, foundUser.role, (err, token) => {
-        if (err) {
-          reject(err);
-        }
+    if (!isCheckPassword) {
+      throw new Error('Такого пользователя не существует');
+    }
 
-        resolve(token);
-      });
-    });
+    return await this._createJwt(foundUser);
   }
 }
 

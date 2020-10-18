@@ -110,7 +110,8 @@ module.exports = {
 		'@typescript-eslint/ban-ts-ignore': 0,
         "react/state-in-constructor": [0, "never"],
         "no-debugger": 1,
-		"class-methods-use-this": 0
+		"class-methods-use-this": 0,
+    "no-return-await": 0
     },
     "env": {
         "browser": true,

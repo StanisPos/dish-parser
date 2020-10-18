@@ -14,7 +14,7 @@ const recipes = [
     someArray: ['first', 'second', 'third'],
   },
 ];
-console.log(Abstract);
+
 class Recipes extends Abstract {
   constructor(name) {
     super(name);
