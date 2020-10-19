@@ -1,24 +1,65 @@
 const fs = require('fs');
 const path = require('path');
-const { noop } = require('lodash');
 
 module.exports = class Abstract {
   constructor(name) {
     if (new.target === Abstract) {
       throw new Error(`Can't instantiate Abstract`);
     } else {
-      this.init();
+      setTimeout(() => {
+        try {
+          this._init().catch(err => {
+            throw new Error(err);
+          });
+        } catch (e) {
+          throw new Error(e.message || e);
+        }
+      });
     }
 
+    this._dirname = 'api';
+
     this.name = name;
+    this.file = this.mockApiPath;
   }
 
-  getMockApiPath() {
-    return path.join(__dirname, '..', '..', 'mock-json-db', 'api', `${this.name}.json`);
+  get mockApiPath() {
+    return path.join(__dirname, '..', '..', 'mock-json-db', this._dirname, `${this.name}.json`);
   }
 
-  init() {
-    noop();
+  async _init() {
+    const isExist = await this._isExistsFile();
+
+    if (!isExist) {
+      const propName = this.propName || this.name;
+      fs.writeFile(this.file, JSON.stringify({ [propName]: [] }), err => {
+        if (err?.message.includes('directory')) {
+          this._createFolder();
+        }
+      });
+    }
+  }
+
+  _createFolder() {
+    fs.mkdir(path.join(__dirname, '..', '..', 'mock-json-db', this._dirname), async err => {
+      if (err) {
+        throw new Error(`Не удалось создать папку: ${err}`);
+      }
+
+      await this._init();
+    });
+  }
+
+  _isExistsFile() {
+    return new Promise(resolve => {
+      fs.access(this.file, err => {
+        if (err?.message.includes('no such file')) {
+          resolve(false);
+        }
+
+        resolve(true);
+      });
+    });
   }
 
   readFile() {
@@ -31,7 +72,7 @@ module.exports = class Abstract {
         try {
           resolve(JSON.parse(data));
         } catch (e) {
-          this.throwError(e);
+          reject(e);
         }
       });
     });

@@ -1,0 +1,16 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "test1",
+      "origin": "testtest1",
+      "someArray": ["first", "second"]
+    }, {
+      "id": 2,
+      "name": "test2",
+      "origin": "testtest2",
+      "someArray": ["first", "second", "third"]
+    }
+  ]
+}
+
