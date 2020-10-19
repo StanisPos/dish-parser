@@ -10,8 +10,8 @@ class Auth extends Abstract {
   constructor(name) {
     super(name);
 
+    this.propName = 'users';
     this.data = {};
-    this.file = this.getMockApiPath();
   }
 
   set _updateUsers(user) {

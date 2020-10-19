@@ -3,13 +3,6 @@ const Abstract = require('../abstract/index');
 class Recipes extends Abstract {
   constructor(name) {
     super(name);
-
-    this.file = this.getMockApiPath();
-  }
-
-  async init() {
-    console.log(await this.isExistsFile());
-    console.log(this);
   }
 
   async _findAll() {
