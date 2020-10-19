@@ -1,16 +1,1 @@
-{
-  "recipes": [
-    {
-      "id": 1,
-      "name": "test1",
-      "origin": "testtest1",
-      "someArray": ["first", "second"]
-    }, {
-      "id": 2,
-      "name": "test2",
-      "origin": "testtest2",
-      "someArray": ["first", "second", "third"]
-    }
-  ]
-}
-
+{"recipes":[{"id":1,"name":"Ещё раз тестируем первый","origin":"testtest1","someArray":["first","second"]},{"id":2,"name":"ещё одна проверка","origin":"testtest1","someArray":["first","second"]}]}

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { orderBy } = require('lodash');
 
 module.exports = class Abstract {
   constructor(name) {
@@ -37,6 +38,12 @@ module.exports = class Abstract {
           this._createFolder();
         }
       });
+    } else {
+      try {
+        this.data = await this.readFile();
+      } catch (e) {
+        throw new Error(e);
+      }
     }
   }
 
@@ -60,6 +67,10 @@ module.exports = class Abstract {
         resolve(true);
       });
     });
+  }
+
+  _updateData() {
+    this.writeFile(this.data);
   }
 
   readFile() {
@@ -88,6 +99,36 @@ module.exports = class Abstract {
         resolve();
       });
     });
+  }
+
+  sortListByType(direction, type) {
+    if (!direction || !type) {
+      throw new Error(`Не удалось произвести сортировку ${this.name}, ошибка направления и типа`);
+    }
+
+    const prop = this.propName || this.name;
+
+    this.data[prop] = orderBy(this.data[prop], [type], [direction]);
+
+    this._updateData();
+
+    return this.data[prop];
+  }
+
+  updateItem(itemId, item) {
+    const prop = this.propName || this.name;
+
+    const index = this.data[prop].findIndex(({ id }) => Number(itemId) === Number(id));
+
+    if (index < 0) {
+      throw new Error('Не удалось обновить элемент');
+    }
+
+    this.data[prop].splice(index, 1, item);
+
+    this._updateData();
+
+    return this.data;
   }
 
   throwError(err) {
