@@ -2,11 +2,11 @@ import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  type: string,
-  placeholder: string,
-  marginTop?: string,
-  onChange(event: ChangeEvent<HTMLInputElement>): void,
-  value: string,
+  type: string;
+  placeholder: string;
+  marginTop?: string;
+  onChange(event: ChangeEvent<HTMLInputElement>): void;
+  value: string;
 };
 
 const StyledInput = styled.input`

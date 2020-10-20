@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  title?: string,
-  type: 'button' | 'submit' | 'reset',
-  disabled?: boolean,
-  onClick?: () => void,
-  marginTop?: string,
+  title?: string;
+  type: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  onClick?: () => void;
+  marginTop?: string;
 };
 
 const StyledButton = styled.button`

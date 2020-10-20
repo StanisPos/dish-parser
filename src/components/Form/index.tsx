@@ -7,13 +7,13 @@ import { validation } from '@components/Form/utils/utils';
 import { ReactComponent as BackButton } from '../../icons/icon-back.svg';
 
 type Props = {
-  fieldType: 'phone' | 'email' | 'password',
-  bottomLinkTitle?: string,
-  buttonTitle: string,
-  inputPlaceholder: string,
-  formHasBackButton: boolean,
-  bottomLinkUrl?: string,
-  submitButtonUrl: string,
+  fieldType: 'phone' | 'email' | 'password';
+  bottomLinkTitle?: string;
+  buttonTitle: string;
+  inputPlaceholder: string;
+  formHasBackButton: boolean;
+  bottomLinkUrl?: string;
+  submitButtonUrl: string;
 };
 
 const StyledForm = styled.form`

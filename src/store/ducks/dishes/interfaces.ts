@@ -1,12 +1,14 @@
 type Minerals = {
-  [key: string]: number,
+  [key: string]: number;
 };
 
-interface DishPart {
+type DishPart = {
   id: number | string;
   name: string;
-  weight: number;
-  quantity: string;
+  image: string;
+  description: string;
+  quantity: number;
+  units: 'л' | 'кг' | 'шт';
   proteins: number;
   fats: number;
   carbohydrates: number;
@@ -14,13 +16,13 @@ interface DishPart {
   glycemicIndex: number;
   breadUnit: number;
   minerals?: Minerals;
-}
+};
 
-export interface Dish extends DishPart {
+export type Dish = DishPart & {
   composition: DishPart[];
-}
+};
 
-export interface RecipesState {
+export type RecipesState = {
   recipes: Dish[];
   count: number;
-}
+};

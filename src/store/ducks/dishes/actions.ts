@@ -11,5 +11,5 @@ export const addRecipe = createAction<Dish>(`${prefix}/add`);
 export const updateRecipe = createAction<Dish>(`${prefix}/update`);
 export const deleteRecipe = createAction<Dish>(`${prefix}/delete`);
 
-export const sortRecipes = createAction<string>(`${prefix}/sort`);
+export const sortRecipes = createAction<Dish[]>(`${prefix}/sort`);
 export const resetSortRecipes = createAction<void>(`${prefix}/reset-sort`);
