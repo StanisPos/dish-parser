@@ -1,38 +1,5 @@
 const Abstract = require('../abstract/index');
 
-const qwe = [
-  {
-    id: 1,
-    name: 'test one',
-    image: 'https://dikoedru.ru/local/templates/dikoed/assets/img/icon_eat.svg',
-    description: 'КБЖУ тест/тест',
-    quantity: 100,
-    units: 'г',
-    origin: 'testtest1',
-    someArray: ['first', 'second'],
-  },
-  {
-    id: 2,
-    name: 'test two',
-    image: 'https://dikoedru.ru/local/templates/dikoed/assets/img/icon_eat.svg',
-    description: 'КБЖУ тест/тест',
-    quantity: 10,
-    units: 'л',
-    origin: 'testtest2',
-    someArray: ['first', 'second', 'third'],
-  },
-  {
-    id: 3,
-    name: 'test three',
-    image: 'https://dikoedru.ru/local/templates/dikoed/assets/img/icon_eat.svg',
-    description: 'КБЖУ тест/тест',
-    quantity: 2,
-    units: 'шт',
-    origin: 'testtest2',
-    someArray: ['first', 'second', 'third'],
-  },
-];
-
 class Recipes extends Abstract {
   constructor(name) {
     super(name);
