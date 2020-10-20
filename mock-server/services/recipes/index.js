@@ -1,6 +1,6 @@
 const Abstract = require('../abstract/index');
 
-const recipes = [
+const qwe = [
   {
     id: 1,
     name: 'test one',
@@ -34,33 +34,41 @@ const recipes = [
 ];
 
 class Recipes extends Abstract {
-  constructor(name = 'recipes') {
+  constructor(name) {
     super(name);
-
-    this.file = this.getMockApiPath();
   }
 
-  init() {
-    console.log(`init: ${this.name}`);
-  }
-
-  getRecipes(req, res) {
-    res.send(JSON.stringify(recipes));
-  }
-
-  getRecipesWithId(req, res) {
-    const id = req.params.id || 0;
-    let result = {};
-
-    for (let i = 0; i < recipes.length; i++) {
-      if (recipes[i].id === id) {
-        result = recipes[i];
-        break;
+  async _findAll() {
+    try {
+      if (this.data) {
+        return this.data;
       }
+
+      this.data = await this.readFile();
+      return this.data;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async findOneById(id) {
+    if (!id) {
+      return {};
     }
 
-    res.send(JSON.stringify(result));
+    const { recipes } = await this._findAll();
+
+    return recipes.find(recipe => recipe.id === id);
+  }
+
+  async getAllList() {
+    try {
+      const { recipes } = await this._findAll();
+      return recipes;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 }
 
-module.exports = new Recipes();
+module.exports = new Recipes('recipes');

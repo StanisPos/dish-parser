@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  type: string,
-  placeholder: string,
-  marginTop?: string,
+  type: string;
+  placeholder: string;
+  marginTop?: string;
+  onChange(event: ChangeEvent<HTMLInputElement>): void;
+  value: string;
 };
 
 const StyledInput = styled.input`
@@ -27,6 +29,16 @@ const StyledInput = styled.input`
   }
 `;
 
-export const Input: React.FC<Props> = React.memo(({ type, placeholder, marginTop }) => {
-  return <StyledInput type={type} placeholder={placeholder} marginTop={marginTop} />;
-});
+export const Input: React.FC<Props> = React.memo(
+  ({ type, placeholder, marginTop, onChange, value }) => {
+    return (
+      <StyledInput
+        type={type}
+        placeholder={placeholder}
+        marginTop={marginTop}
+        onChange={onChange}
+        value={value}
+      />
+    );
+  },
+);
