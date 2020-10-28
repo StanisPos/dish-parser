@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import { authSaga } from '@ducks/auth/sagas';
 import { recipesSaga } from '@ducks/dishes/sagas';
 import { rootReducer } from './ducks';
 

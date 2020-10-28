@@ -4,16 +4,18 @@ import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Link, useHistory } from 'react-router-dom';
 import { validation } from '@components/Form/utils/utils';
+import { connect } from 'react-redux';
+import { changeField } from '@ducks/auth/actions';
 import { ReactComponent as BackButton } from '../../icons/icon-back.svg';
 
-type Props = {
-  fieldType: 'phone' | 'email' | 'password',
-  bottomLinkTitle?: string,
-  buttonTitle: string,
-  inputPlaceholder: string,
-  formHasBackButton: boolean,
-  bottomLinkUrl?: string,
-  submitButtonUrl: string,
+type Props = typeof mapDispatchToProps & {
+  fieldType: 'phone' | 'email' | 'password';
+  bottomLinkTitle?: string;
+  buttonTitle: string;
+  inputPlaceholder: string;
+  formHasBackButton: boolean;
+  bottomLinkUrl?: string;
+  submitButtonUrl: string;
 };
 
 const StyledForm = styled.form`
@@ -69,7 +71,7 @@ const StyledTitle = styled.h1`
   text-align: center;
 `;
 
-export const Form: React.FC<Props> = React.memo(
+const Form: React.FC<Props> = React.memo(
   ({
     fieldType,
     bottomLinkTitle,
@@ -78,6 +80,7 @@ export const Form: React.FC<Props> = React.memo(
     formHasBackButton,
     bottomLinkUrl,
     submitButtonUrl,
+    changeTextField,
   }) => {
     const [fieldValue, setFieldValue] = useState('');
     const [fieldHasError, setFieldHasError] = useState(true);
@@ -87,6 +90,10 @@ export const Form: React.FC<Props> = React.memo(
     const handleFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
       setFieldValue(event.target.value);
       setFieldHasError(validation[fieldType](event.target.value));
+      changeTextField({
+        fieldType,
+        value: event.target.value,
+      });
     };
 
     const handleButtonClick = () => {
@@ -124,3 +131,9 @@ export const Form: React.FC<Props> = React.memo(
     );
   },
 );
+
+const mapDispatchToProps = {
+  changeTextField: changeField,
+};
+
+export default connect(null, mapDispatchToProps)(Form);

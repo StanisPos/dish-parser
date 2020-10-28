@@ -1,5 +1,5 @@
 type Minerals = {
-  [key: string]: number,
+  [key: string]: number;
 };
 
 interface DishPart {
